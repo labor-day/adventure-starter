@@ -1,3 +1,5 @@
+let {Food} = require("./food");
+
 class Player {
 
     constructor(name, startingRoom) {
@@ -31,27 +33,53 @@ class Player {
         }
     }
 
-    takeItem(itemName) {
+    findItemIndex(name) {
+        let inventory = this.items;
+        for (let i = 0; i < inventory.length; i++) {
+          let currentItem = inventory[i];
+          if (currentItem.name === name) {
+            return i;
+          }
+        }
+    }
 
+    removeItem(name) {
+        let index = this.findItemIndex(name);
+        return this.items.splice(index, 1)[0];
+      }
+
+    takeItem(itemName) {
         // Fill this in
+        this.items.push(this.currentRoom.removeItem(itemName));
 
     }
 
     dropItem(itemName) {
 
         // Fill this in
+        this.currentRoom.addItem(this.removeItem(itemName));
     }
 
     eatItem(itemName) {
         // Fill this in
+        let index = this.findItemIndex(itemName);
+        let item = this.items[index];
+
+        if (item instanceof Food) {
+            this.removeItem(itemName);
+        }
 
     }
 
     getItemByName(name) {
 
         // Fill this in
+        let index = this.findItemIndex(name);
+        return this.removeItem(name);
+
     }
 }
+
 
 module.exports = {
   Player,

@@ -20,6 +20,7 @@ describe ('Item', function () {
 
 
   it('can be retrieved from player inventory by name', function () {
+    debugger;
     let item = new Item("rock", "just a simple rock");
     let room = new Room("Test Room", "A test room");
     let player = new Player("player", room);

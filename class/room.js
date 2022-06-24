@@ -1,3 +1,4 @@
+
 class Room {
 
     constructor(name, description) {
@@ -43,9 +44,30 @@ class Room {
         return this.exits[direction];
     }
 
-    getItemByName(name) {
+    findItemIndex(name) {
+        let inventory = this.items;
+        for (let i = 0; i < inventory.length; i++) {
+          let currentItem = inventory[i];
+          if (currentItem.name === name) {
+            return i;
+          }
+        }
+    }
 
+    removeItem(name) {
+      let index = this.findItemIndex(name);
+      return this.items.splice(index, 1)[0];
+    }
+
+    getItemByName(name) {
         // Fill this in
+        let index = this.findItemIndex(name);
+        return this.items[index];
+
+    }
+
+    addItem(item) {
+        this.items.push(item);
     }
 
 }
